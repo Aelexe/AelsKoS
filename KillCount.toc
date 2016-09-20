@@ -1,6 +1,6 @@
 ## Interface: 70000
 ## Title: Kill Count
-## Notes: Track PVP kills and deaths against individual players.|n|n|cffDDB500By |cff69CCF0Aelexe |cffDDB500(Frostmourne US)
+## Notes: Track PVP kills and deaths against individual players.|n|n|cffDDB500By |cffDED95DAelexe |cffDDB500(Frostmourne US)
 ## Version: 0.1
 ## Author: Aelexe (Frostmourne US)
 ## SavedVariables: KillCount_Data
