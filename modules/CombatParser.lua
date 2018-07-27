@@ -37,7 +37,7 @@ function AelsKoSCombatParser:COMBAT_LOG_EVENT_UNFILTERED()
   amount, overkill = select(offset, CombatLogGetCurrentEventInfo())
 
   -- Discard if it isn't a kill, determined by overkill amount.
-  if overkill <= 0 then
+  if overkill == -1 then
     return
   end
   -- If it was our pet doing the killing.
