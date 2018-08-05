@@ -3,7 +3,20 @@
 	All rights reserved.
 ------------------------------------------------------------------------]]
 
-AelsKoS = LibStub("AceAddon-3.0"):NewAddon("Kill Count", "AceConsole-3.0", "AceEvent-3.0")
+AelsKoS = LibStub("AceAddon-3.0"):NewAddon("AelsKoS", "AceConsole-3.0", "AceEvent-3.0")
+
+local libDataBroker = LibStub("LibDataBroker-1.1"):NewDataObject("Bunnies!", {
+	type = "data source",
+	text = "AelsKoS",
+	icon = "Interface\\Icons\\INV_ThrowingKnife_04",
+	OnClick = function() AelsKoSGUI:toggle() end,
+  OnTooltipShow = function(tooltip)
+    if not tooltip or not tooltip.AddLine then return end
+    tooltip:SetText("AelsKoS", 1, 1, 1)
+    tooltip:AddLine("Click to show the KoS interface.", NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1)
+  end,
+})
+local minimapIcon = LibStub("LibDBIcon-1.0")
 
 --[[----------------------------------------------------------------------
   ACE Functions
@@ -41,7 +54,8 @@ function AelsKoS:OnInitialize()
         count = 0
       },
       settings = {
-        debug = false
+        debug = false,
+        minimap = {}
       }
     }
   }
@@ -56,6 +70,8 @@ function AelsKoS:OnInitialize()
   -- Create shortcuts to the DB.
   self.settings = self.db.global.settings
 
+  -- Register minimap icon.
+  minimapIcon:Register("AelsKoS", libDataBroker, self.settings.minimap)
 end
 
 --[[----------------------------------------------------------------------
@@ -188,7 +204,9 @@ GameTooltip:HookScript("OnTooltipSetUnit", hook_OnTooltipSetUnit);
 AelsKoS:RegisterChatCommand("aelskos", "slashCommand")
 
 function AelsKoS:slashCommand(input)
-  if input == "debug" then
+  if input == "" then
+    AelsKoSGUI:showGUI()
+  elseif input == "debug" then
     self:_toggleDebug()
   end
 end
